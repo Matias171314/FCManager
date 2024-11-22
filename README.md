@@ -30,7 +30,7 @@ Para ejecutar este proyecto, necesitarás:
 
 1. **Clonar el repositorio:**
   ```bash
-  git clone https://github.com/tu-usuario/FCManager.git
+  git clone https://github.com/Matias171314/FCManager.git
   ```
 
 2. **Abrir el proyecto en NetBeans:**
