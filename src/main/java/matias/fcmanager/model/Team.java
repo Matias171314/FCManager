@@ -22,6 +22,7 @@ public class Team {
     private String liga;
     private List<Player> listajugadores;  // Lista de jugadores del equipo
     private List<Staff> listapersonal;   // Lista del personal del equipo
+    private List<Match> partidos; // Lista de partidos del equipo
 
     // Constructor
     public Team(String nombreEquipo, LocalDate fundacion, String estadio, String ciudad, String pais, String liga) {
@@ -33,6 +34,7 @@ public class Team {
         this.liga = liga;
         this.listajugadores = new ArrayList<>();
         this.listapersonal = new ArrayList<>();
+        this.partidos = new ArrayList<>();
     }
 
     // Métodos para Lista de jugadores
@@ -50,7 +52,7 @@ public class Team {
         }
     }
 
-    // Métodos para personal
+    // Métodos para Lista de personal
     public void addStaff(Staff staff) {
         listapersonal.add(staff);
         System.out.println("Miembro del personal añadido: " + staff.getNombre() + " " + staff.getApellido());
@@ -64,6 +66,34 @@ public class Team {
             System.out.println("No se encontró un miembro del personal con ID: " + staffId);
         }
     }
+
+    // Métodos para Lista de partidos
+    public void addMatch(Match match) {
+        partidos.add(match);
+        System.out.println("Partido añadido: " + match.getFecha());
+    }
+    
+    public void removeMatch(String matchId) {
+        boolean removed = partidos.removeIf(match -> match.getId().equals(matchId));
+        if (removed) {
+            System.out.println("Partido eliminado: ID " + matchId);
+        } else {
+            System.out.println("No se encontró un partido con ID: " + matchId);
+        }
+    }
+
+    public String mostrarPartidos() {
+        if (partidos.isEmpty()) {
+            return "No hay partidos registrados.";
+        }
+        StringBuilder sb = new StringBuilder("Lista de partidos:\n");
+        for (Match partido : partidos) {
+            sb.append(partido).append("\n");
+        }
+        return sb.toString();
+    }
+    
+
 
     // Método para generar informe del equipo
     public String generarInforme() {
@@ -119,5 +149,41 @@ public class Team {
 
     public List<Staff> getPersonal() {
         return listapersonal;
+    }
+
+    public List<Match> getPartidos() {
+        return partidos;
+    }
+
+    public String getEstadio() {
+        return estadio;
+    }
+
+    public void setEstadio(String estadio) {
+        this.estadio = estadio;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public void setLiga(String liga) {
+        this.liga = liga;
+    }
+
+    public String getLiga() {
+        return liga;
     }
 }

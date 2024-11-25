@@ -15,11 +15,11 @@ public class Match {
     // Datos del partido
     private String id;
     private LocalDate fecha;
-    private Team equipoLocal;
-    private Team equipoVisitante;
+    private String equipoLocal;
+    private String equipoVisitante;
     private int golesLocal;
     private int golesVisitante;
-    private String ubicacion;
+    private String estadio;
     
     // Estadísticas adicionales
     private int tarjetasAmarillasLocal;
@@ -29,15 +29,16 @@ public class Match {
     private String comentarios;
 
     // Constructor
-    public Match(String id, LocalDate fecha, Team equipoLocal, Team equipoVisitante, 
-                int golesLocal, int golesVisitante, String ubicacion) {
-        this.id = id;
-        this.fecha = fecha;
+    public Match(String equipoLocal, String equipoVisitante, LocalDate fecha, 
+                boolean enCasa, String estadio ,int golesLocal, int golesVisitante) {
+        
+        this.id = generarId(equipoLocal, equipoVisitante, fecha);
         this.equipoLocal = equipoLocal;
         this.equipoVisitante = equipoVisitante;
+        this.fecha = fecha;
         this.golesLocal = golesLocal;
         this.golesVisitante = golesVisitante;
-        this.ubicacion = ubicacion;
+        this.estadio = estadio;
         this.tarjetasAmarillasLocal = 0; // Predeterminado
         this.tarjetasAmarillasVisitante = 0; // Predeterminado
         this.tarjetasRojasLocal = 0; // Predeterminado
@@ -45,16 +46,23 @@ public class Match {
         this.comentarios = "";
     }
 
-    // Métodos adicionales
+    // Métodos
+    private String generarId(String equipoLocal, String equipoVisitante, LocalDate fecha) {
+        String id = "";
+        return equipoLocal.substring(0, 1).toUpperCase() + "-" + equipoVisitante.substring(0, 1).toUpperCase() + fecha.toString();
+    }
+
+    // Resumen del partido
     public String resumenPartido() {
-        return "Partido: " + equipoLocal.getNombreEquipo() + " vs " + equipoVisitante.getNombreEquipo() + 
+        return "Partido: " + equipoLocal + " vs " + equipoVisitante + 
             "\nFecha: " + fecha +
             "\nResultado: " + golesLocal + " - " + golesVisitante + 
-            "\nUbicación: " + ubicacion +
+            "\nUbicación: " + estadio +
             "\nTarjetas Amarillas Local: " + tarjetasAmarillasLocal +
             "\nTarjetas Amarillas Visitante: " + tarjetasAmarillasVisitante +
             "\nTarjetas Rojas Local: " + tarjetasRojasLocal +
-            "\nTarjetas Rojas Visitante: " + tarjetasRojasVisitante;
+            "\nTarjetas Rojas Visitante: " + tarjetasRojasVisitante +
+            "\nComentarios: " + comentarios;
     }
 
     // Getters y Setters
@@ -66,11 +74,11 @@ public class Match {
         return fecha;
     }
 
-    public Team getEquipoLocal() {
+    public String getEquipoLocal() {
         return equipoLocal;
     }
 
-    public Team getEquipoVisitante() {
+    public String getEquipoVisitante() {
         return equipoVisitante;
     }
 
@@ -82,24 +90,40 @@ public class Match {
         return golesVisitante;
     }
 
-    public String getUbicacion() {
-        return ubicacion;
+    public String getEstadio() {
+        return estadio;
     }
 
     public int getTarjetasAmarillasLocal() {
         return tarjetasAmarillasLocal;
     }
 
+    public void setTarjetasAmarillasLocal(int tarjetasAmarillasLocal) {
+        this.tarjetasAmarillasLocal = tarjetasAmarillasLocal;
+    }
+
     public int getTarjetasAmarillasVisitante() {
         return tarjetasAmarillasVisitante;
+    }
+
+    public void setTarjetasAmarillasVisitante(int tarjetasAmarillasVisitante) {
+        this.tarjetasAmarillasVisitante = tarjetasAmarillasVisitante;
     }
 
     public int getTarjetasRojasLocal() {
         return tarjetasRojasLocal;
     }
 
+    public void setTarjetasRojasLocal(int tarjetasRojasLocal) {
+        this.tarjetasRojasLocal = tarjetasRojasLocal;
+    }
+
     public int getTarjetasRojasVisitante() {
         return tarjetasRojasVisitante;
+    }
+
+    public void setTarjetasRojasVisitante(int tarjetasRojasVisitante) {
+        this.tarjetasRojasVisitante = tarjetasRojasVisitante;
     }
 
     public String getComentarios() {
@@ -108,5 +132,10 @@ public class Match {
 
     public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
+    }
+
+    @Override
+    public String toString() {
+        return resumenPartido();
     }
 }
